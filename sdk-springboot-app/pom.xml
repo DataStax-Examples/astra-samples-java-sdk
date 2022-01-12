@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>17</java.version>
-        <astra-starter.version>0.2.4-SNAPSHOT</astra-starter.version>
+        <astra-starter.version>0.2.5</astra-starter.version>
 		<hibernate-validation.version>7.0.1.Final</hibernate-validation.version>
 		<maven-plugin-compiler.version>3.8.1</maven-plugin-compiler.version>
 	</properties>
