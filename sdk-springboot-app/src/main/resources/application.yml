@@ -1,0 +1,29 @@
+server:
+  port: ${PORT:9191}
+
+spring:
+  messages:
+    basename: i18n/messages
+  thymeleaf:
+    mode: XHTML
+    prefix: classpath:views/view-
+    suffix: .html
+  jackson:
+    default-property-inclusion: non-null   
+  output:
+    ansi:
+      enabled: DETECT    
+ 
+logging:
+  file.name: logs/application-debug.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    root: INFO
+
+astra:
+  application-token: CHANGE_ME
+  database-id: CHANGE_ME
+  database-region: CHANGE_ME
+  keyspace: CHANGE_ME
