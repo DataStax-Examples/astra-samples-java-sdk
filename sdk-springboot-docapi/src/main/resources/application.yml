@@ -1,0 +1,13 @@
+server:
+  port: ${PORT:9090}
+
+wu:
+  namespace: wu
+  dealers: dealers
+
+astra:
+  api:
+    application-token: change_me
+    database-id: change_me
+    database-region: change_me
+    

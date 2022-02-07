@@ -52,6 +52,7 @@ public class StargateCrossDCFailover {
                 .withCqlDriverOption(TypedDriverOption.CONNECTION_INIT_QUERY_TIMEOUT, Duration.ofSeconds(10))
                 .withCqlDriverOption(TypedDriverOption.CONNECTION_SET_KEYSPACE_TIMEOUT, Duration.ofSeconds(10))
                 .withCqlDriverOption(TypedDriverOption.CONTROL_CONNECTION_TIMEOUT, Duration.ofSeconds(10))
+                
                 .withApiNode(new StargateNodeConfig("dc1s1", "localhost", 8081, 8082, 8080, 8083))
                 .withApiNode(new StargateNodeConfig("dc1s2", "localhost", 9091, 9092, 9090, 9093))
                 
