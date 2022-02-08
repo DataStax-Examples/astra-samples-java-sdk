@@ -20,6 +20,7 @@ public class AstraCrossRegionFailOver {
                 .withToken(ASTRA_DB_TOKEN)
                 .withDatabaseId(ASTRA_DB_ID)
                 .withDatabaseRegion(ASTRA_DB_REGION)
+                .enableCql()
                 .build()) {
 
            // 2) list Regions 

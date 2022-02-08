@@ -30,6 +30,8 @@ public class QuickStartAstra {
             testDocumentaApi(astraClient);
             testGraphQLApi(astraClient);
             testGrpcApi(astraClient);
+            
+            System.out.println("============ SUCCESS =================");
         }
     }
     
@@ -39,6 +41,8 @@ public class QuickStartAstra {
          .withDatabaseId(ASTRA_DB_ID)
          .withDatabaseRegion(ASTRA_DB_REGION)
          .withCqlKeyspace(ASTRA_DB_KEYSPACE)
+         .enableCql()
+         .enableGrpc()
          .build();
     }
     

@@ -23,6 +23,7 @@ public class QuickstartStargate {
                 .withCqlContactPoints("localhost:9042")
                 .withLocalDatacenter("datacenter1")
                 .withAuthCredentials("cassandra", "cassandra")
+                .enableCql()
                 .withApiNode(new StargateNodeConfig("127.0.0.1", 8081, 8082, 8080, 9191))
                 .build();
     }

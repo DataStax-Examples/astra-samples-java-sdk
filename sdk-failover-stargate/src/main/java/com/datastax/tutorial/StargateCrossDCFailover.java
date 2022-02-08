@@ -10,9 +10,11 @@ import org.apache.hc.client5.http.cookie.StandardCookieSpec;
 import org.apache.hc.core5.util.Timeout;
 
 import com.datastax.oss.driver.api.core.ConsistencyLevel;
+import com.datastax.oss.driver.api.core.config.DefaultDriverOption;
 import com.datastax.oss.driver.api.core.config.TypedDriverOption;
 import com.datastax.stargate.sdk.StargateClient;
 import com.datastax.stargate.sdk.audit.AnsiConsoleLogger;
+import com.datastax.stargate.sdk.config.StargateClientConfig;
 import com.datastax.stargate.sdk.config.StargateNodeConfig;
 import com.evanlennick.retry4j.config.RetryConfigBuilder;
 
@@ -40,18 +42,20 @@ public class StargateCrossDCFailover {
     }
     
     public static StargateClient setupStargate() {
-        return StargateClient.builder()
-                .withApplicationName("FullSample")
+        StargateClientConfig config = StargateClient.builder()
                 // Setup DC1
                 .withLocalDatacenter(DC1)
                 .withAuthCredentials("cassandra", "cassandra")
                 .withCqlContactPoints("localhost:9052")
                 .withCqlKeyspace("system")
                 .withCqlConsistencyLevel(ConsistencyLevel.LOCAL_QUORUM)
-                .withCqlDriverOption(TypedDriverOption.CONNECTION_CONNECT_TIMEOUT, Duration.ofSeconds(10))
-                .withCqlDriverOption(TypedDriverOption.CONNECTION_INIT_QUERY_TIMEOUT, Duration.ofSeconds(10))
-                .withCqlDriverOption(TypedDriverOption.CONNECTION_SET_KEYSPACE_TIMEOUT, Duration.ofSeconds(10))
-                .withCqlDriverOption(TypedDriverOption.CONTROL_CONNECTION_TIMEOUT, Duration.ofSeconds(10))
+                .enableCql()
+                .enableGrpc()
+                
+                //.withCqlDriverOption(TypedDriverOption.CONNECTION_CONNECT_TIMEOUT, Duration.ofSeconds(10))
+                //.withCqlDriverOption(TypedDriverOption.CONNECTION_INIT_QUERY_TIMEOUT, Duration.ofSeconds(10))
+                //.withCqlDriverOption(TypedDriverOption.CONNECTION_SET_KEYSPACE_TIMEOUT, Duration.ofSeconds(10))
+                //.withCqlDriverOption(TypedDriverOption.CONTROL_CONNECTION_TIMEOUT, Duration.ofSeconds(10))
                 
                 .withApiNode(new StargateNodeConfig("dc1s1", "localhost", 8081, 8082, 8080, 8083))
                 .withApiNode(new StargateNodeConfig("dc1s2", "localhost", 9091, 9092, 9090, 9093))
@@ -60,10 +64,10 @@ public class StargateCrossDCFailover {
                 .withApiNodeDC(DC2, new StargateNodeConfig("dc2s1", "localhost", 6061, 6062, 6060, 6063))
                 .withApiNodeDC(DC2, new StargateNodeConfig("dc2s2", "localhost", 7071, 7072, 7070, 7073))
                 .withCqlContactPointsDC(DC2, "localhost:9062")
-                .withCqlDriverOptionDC(DC2,TypedDriverOption.CONNECTION_CONNECT_TIMEOUT, Duration.ofSeconds(10))
-                .withCqlDriverOptionDC(DC2,TypedDriverOption.CONNECTION_INIT_QUERY_TIMEOUT, Duration.ofSeconds(10))
-                .withCqlDriverOptionDC(DC2,TypedDriverOption.CONNECTION_SET_KEYSPACE_TIMEOUT, Duration.ofSeconds(10))
-                .withCqlDriverOptionDC(DC2,TypedDriverOption.CONTROL_CONNECTION_TIMEOUT, Duration.ofSeconds(10))
+                //.withCqlDriverOptionDC(DC2,TypedDriverOption.CONNECTION_CONNECT_TIMEOUT, Duration.ofSeconds(10))
+                //.withCqlDriverOptionDC(DC2,TypedDriverOption.CONNECTION_INIT_QUERY_TIMEOUT, Duration.ofSeconds(10))
+                //.withCqlDriverOptionDC(DC2,TypedDriverOption.CONNECTION_SET_KEYSPACE_TIMEOUT, Duration.ofSeconds(10))
+                //.withCqlDriverOptionDC(DC2,TypedDriverOption.CONTROL_CONNECTION_TIMEOUT, Duration.ofSeconds(10))
                 
                 // Setup HTTP
                 .withHttpRequestConfig(RequestConfig.custom()
@@ -80,8 +84,10 @@ public class StargateCrossDCFailover {
                         .withExponentialBackoff()
                         .withMaxNumberOfTries(3)
                         .build())
-                .addHttpObserver("logger_light", new AnsiConsoleLogger())
-                .build();
+                .addHttpObserver("logger_light", new AnsiConsoleLogger());
+        
+        config.getCqlDriverConfigLoaderBuilder().withDuration(DefaultDriverOption.CONNECTION_CONNECT_TIMEOUT, Duration.ofSeconds(10));
+        return config.build();
     }
     
     public static void testCqlApi(StargateClient stargateClient) {

@@ -52,14 +52,16 @@ public class UserRepository extends SimpleCassandraRepository<User, String> {
         super(ceInfo, operations);
         this.cassandraTemplate = operations;
         this.cqlOperations     = cassandraTemplate.getCqlOperations();
+       
     }
     
     /**
      * create user_by_id;
      */
-    public void createTable() {
+    public void createIfNotExistTable() {
         cqlOperations.execute(SchemaBuilder
-                .createTable(TABLE_NAME).ifNotExists()
+                .createTable(TABLE_NAME)
+                .ifNotExists()
                 .withPartitionKey(COLUMN_EMAIL, TEXT)
                 .withColumn(COLUMN_PASSWORD, TEXT)
                 .withColumn(COLUMN_FIRSTNAME, TEXT)

@@ -2,6 +2,8 @@ package com.datastax.yasa.security;
 
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -59,6 +61,12 @@ public class SecurityUserDetails implements UserDetailsService {
                 user.getEmail(), 
                 user.getPassword(), 
                 user.getAuthorities().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+    }
+    
+    @PostConstruct
+    public void initDB() {
+        userRepository.createIfNotExistTable();
+        userRepository.save(com.datastax.yasa.user.User.simpleUser("user@test.com", "user", "user", "user"));
     }
     
 }

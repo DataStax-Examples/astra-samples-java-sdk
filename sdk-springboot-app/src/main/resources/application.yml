@@ -22,33 +22,18 @@ logging:
   level:
     root: INFO
 
-
 astra:
- 
+  
   api:
     application-token: "AstraCS:gdZaqzmFZszaBTOlLgeecuPs:edd25600df1c01506f5388340f138f277cece2c93cb70f4b5fa386490daa5d44"
     database-id: 3ed83de7-d97f-4fb6-bf9f-82e9f7eafa23
     database-region: eu-west-1
-    grpc:
-      enabled: true
- 
+    
   cql:
     enabled: true
     download-scb: 
       enabled: true
-    metrics:
-      enabled: false
     driver-config:
       basic:
-        request:
-          timeout: 5s
-          consistency: LOCAL_QUORUM
-          page-size: 5000
         session-keyspace: feeds_reader
-      advanced:
-        connection:
-          init-query-timeout: 5s      
-          set-keyspace-timeout: 5s
-        control-connection.timeout: 5s
-
         

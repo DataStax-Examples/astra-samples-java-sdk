@@ -2,10 +2,12 @@ package com.datastax.yasa.user;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.data.cassandra.core.mapping.CassandraType.Name;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -122,6 +124,19 @@ public class User implements Serializable {
      * Default constructor.
      */
     public User() {}
+    
+    public static User simpleUser(String email, String password, String firstname, String lastname) {
+        Set<String> auth = new HashSet<>();
+        auth.add("USER");
+        User u = new User();
+        u.setEmail(email);
+        u.setPassword(new BCryptPasswordEncoder().encode(password));
+        u.setFirstname(firstname);
+        u.setLastname(lastname);
+        u.setLangKey("EN");
+        u.setAuthorities(auth);
+        return u;
+    }
    
     /**
      * Getter accessor for attribute 'password'.

@@ -20,7 +20,17 @@ management:
         include: "*"
         
 astra:
-  application-token: CHANGE_ME
-  database-id: CHANGE_ME
-  database-region: CHANGE_ME
-  keyspace: quickstart
+  api:
+    application-token: change_me
+    database-id: change_me
+    database-region: change_me
+  cql:
+    enabled: true
+    download-scb: 
+      enabled: true
+    metrics: 
+      enabled: true
+    driver-config:
+      basic:
+        session-keyspace: quickstart
+        
