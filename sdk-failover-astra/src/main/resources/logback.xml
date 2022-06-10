@@ -1,0 +1,11 @@
+<configuration debug="false">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+       		<pattern>%d{HH:mm:ss.SSS} %magenta(%-5level) %cyan(%-35logger) : %msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="ERROR">
+        <appender-ref ref="STDOUT"/>
+    </root>
+    <logger name="com.datastax.tutorial" level="INFO"/>
+</configuration>

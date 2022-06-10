@@ -2,15 +2,14 @@ package com.datastax.yasa.user;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.data.cassandra.core.mapping.CassandraType.Name;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * Table user with the mapper.
@@ -117,7 +116,7 @@ public class User implements Serializable {
     
     /** roles. */
     @Column(COLUMN_AUTHORITIES)
-    @CassandraType(type = CassandraType.Name.LIST, typeArguments = Name.TEXT)
+    @CassandraType(type = CassandraType.Name.SET, typeArguments = Name.TEXT)
     private Set<String> authorities;
     
     /**
@@ -125,16 +124,15 @@ public class User implements Serializable {
      */
     public User() {}
     
-    public static User simpleUser(String email, String password, String firstname, String lastname) {
-        Set<String> auth = new HashSet<>();
-        auth.add("USER");
+    public static User simpleUser(String email, String password, String firstname, String lastname, Set<String> authorities) {
         User u = new User();
         u.setEmail(email);
         u.setPassword(new BCryptPasswordEncoder().encode(password));
         u.setFirstname(firstname);
         u.setLastname(lastname);
         u.setLangKey("EN");
-        u.setAuthorities(auth);
+        u.setActivated(true);
+        u.setAuthorities(authorities);
         return u;
     }
    

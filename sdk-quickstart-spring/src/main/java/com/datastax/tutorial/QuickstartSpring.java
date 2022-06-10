@@ -50,6 +50,7 @@ public class QuickstartSpring {
 	
 	@GetMapping("/datacenter")
 	public String datacenter() {
+	    
 	    return cassandraTemplate.getCqlOperations().queryForObject("SELECT data_center FROM system.local", String.class);
 	}
 	

@@ -13,10 +13,10 @@ import com.datastax.oss.driver.api.core.CqlSession;
 
 public class QuickStartAstra {
     
-    public static final String ASTRA_DB_TOKEN    = "CHANGE_ME";
-    public static final String ASTRA_DB_ID       = "CHANGE_ME";
-    public static final String ASTRA_DB_REGION   = "CHANGE_ME";
-    public static final String ASTRA_DB_KEYSPACE = "CHANGE_ME";
+    static String ASTRA_DB_TOKEN    = "AstraCS:gdZaqzmFZszaBTOlLgeecuPs:edd25600df1c01506f5388340f138f277cece2c93cb70f4b5fa386490daa5d44";
+    static String ASTRA_DB_ID       = "3ed83de7-d97f-4fb6-bf9f-82e9f7eafa23";
+    static String ASTRA_DB_REGION   = "eu-central-1";
+    static String ASTRA_DB_KEYSPACE = "devoxx";
     
     public static void main(String[] args) {
         try (AstraClient astraClient = configureAtraClient()) {
@@ -61,7 +61,7 @@ public class QuickStartAstra {
     
     public static void testDevopsDatabaseApi(AstraClient astraClient) {
         System.out.println("\n[DEVOPS/DATABASE]");
-        Optional<Database> db = astraClient.apiDevopsDatabases().databaseByName("quickstart").find();
+        Optional<Database> db =  astraClient.apiDevopsDatabases().database(ASTRA_DB_ID).find();
         System.out.println("+ databaseId=" + db.get().getId());
         System.out.println("+ databaseRegion=" +db.get().getInfo().getRegion());
         System.out.println("+ keyspace=" +db.get().getInfo().getKeyspace());

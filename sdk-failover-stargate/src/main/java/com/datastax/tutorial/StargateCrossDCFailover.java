@@ -52,10 +52,10 @@ public class StargateCrossDCFailover {
                 .enableCql()
                 .enableGrpc()
                 
-                //.withCqlDriverOption(TypedDriverOption.CONNECTION_CONNECT_TIMEOUT, Duration.ofSeconds(10))
-                //.withCqlDriverOption(TypedDriverOption.CONNECTION_INIT_QUERY_TIMEOUT, Duration.ofSeconds(10))
-                //.withCqlDriverOption(TypedDriverOption.CONNECTION_SET_KEYSPACE_TIMEOUT, Duration.ofSeconds(10))
-                //.withCqlDriverOption(TypedDriverOption.CONTROL_CONNECTION_TIMEOUT, Duration.ofSeconds(10))
+                .withCqlOptionDuration(TypedDriverOption.CONNECTION_CONNECT_TIMEOUT, Duration.ofSeconds(10))
+                .withCqlOptionDuration(TypedDriverOption.CONNECTION_INIT_QUERY_TIMEOUT, Duration.ofSeconds(10))
+                .withCqlOptionDuration(TypedDriverOption.CONNECTION_SET_KEYSPACE_TIMEOUT, Duration.ofSeconds(10))
+                .withCqlOptionDuration(TypedDriverOption.CONTROL_CONNECTION_TIMEOUT, Duration.ofSeconds(10))
                 
                 .withApiNode(new StargateNodeConfig("dc1s1", "localhost", 8081, 8082, 8080, 8083))
                 .withApiNode(new StargateNodeConfig("dc1s2", "localhost", 9091, 9092, 9090, 9093))
@@ -64,10 +64,10 @@ public class StargateCrossDCFailover {
                 .withApiNodeDC(DC2, new StargateNodeConfig("dc2s1", "localhost", 6061, 6062, 6060, 6063))
                 .withApiNodeDC(DC2, new StargateNodeConfig("dc2s2", "localhost", 7071, 7072, 7070, 7073))
                 .withCqlContactPointsDC(DC2, "localhost:9062")
-                //.withCqlDriverOptionDC(DC2,TypedDriverOption.CONNECTION_CONNECT_TIMEOUT, Duration.ofSeconds(10))
-                //.withCqlDriverOptionDC(DC2,TypedDriverOption.CONNECTION_INIT_QUERY_TIMEOUT, Duration.ofSeconds(10))
-                //.withCqlDriverOptionDC(DC2,TypedDriverOption.CONNECTION_SET_KEYSPACE_TIMEOUT, Duration.ofSeconds(10))
-                //.withCqlDriverOptionDC(DC2,TypedDriverOption.CONTROL_CONNECTION_TIMEOUT, Duration.ofSeconds(10))
+                .withCqlOptionDurationDC(DC2,TypedDriverOption.CONNECTION_CONNECT_TIMEOUT, Duration.ofSeconds(10))
+                .withCqlOptionDurationDC(DC2,TypedDriverOption.CONNECTION_INIT_QUERY_TIMEOUT, Duration.ofSeconds(10))
+                .withCqlOptionDurationDC(DC2,TypedDriverOption.CONNECTION_SET_KEYSPACE_TIMEOUT, Duration.ofSeconds(10))
+                .withCqlOptionDurationDC(DC2,TypedDriverOption.CONTROL_CONNECTION_TIMEOUT, Duration.ofSeconds(10))
                 
                 // Setup HTTP
                 .withHttpRequestConfig(RequestConfig.custom()
@@ -96,7 +96,6 @@ public class StargateCrossDCFailover {
                 stargateClient.cqlSession().get()
                 .execute("SELECT data_center from system.local")
                 .one().getString("data_center"));
-
     }
     
     public static void testRestApi(StargateClient stargateClient) {

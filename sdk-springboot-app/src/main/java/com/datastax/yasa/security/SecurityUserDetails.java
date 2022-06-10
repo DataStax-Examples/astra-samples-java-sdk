@@ -1,5 +1,6 @@
 package com.datastax.yasa.security;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -66,7 +67,8 @@ public class SecurityUserDetails implements UserDetailsService {
     @PostConstruct
     public void initDB() {
         userRepository.createIfNotExistTable();
-        userRepository.save(com.datastax.yasa.user.User.simpleUser("user@test.com", "user", "user", "user"));
+        userRepository.save(com.datastax.yasa.user.User.simpleUser("user@test.com", "user", "user", "user", Set.of("USER")));
+        userRepository.save(com.datastax.yasa.user.User.simpleUser("admin@test.com", "admin", "user", "user", Set.of("ADMIN", "USER")));
     }
     
 }

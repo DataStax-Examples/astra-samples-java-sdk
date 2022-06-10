@@ -52,7 +52,6 @@ public class UserRepository extends SimpleCassandraRepository<User, String> {
         super(ceInfo, operations);
         this.cassandraTemplate = operations;
         this.cqlOperations     = cassandraTemplate.getCqlOperations();
-       
     }
     
     /**
