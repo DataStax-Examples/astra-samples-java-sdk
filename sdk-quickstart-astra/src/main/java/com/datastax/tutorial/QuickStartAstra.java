@@ -13,13 +13,13 @@ import com.datastax.oss.driver.api.core.CqlSession;
 
 public class QuickStartAstra {
     
-    static String ASTRA_DB_TOKEN    = "AstraCS:gdZaqzmFZszaBTOlLgeecuPs:edd25600df1c01506f5388340f138f277cece2c93cb70f4b5fa386490daa5d44";
-    static String ASTRA_DB_ID       = "3ed83de7-d97f-4fb6-bf9f-82e9f7eafa23";
-    static String ASTRA_DB_REGION   = "eu-central-1";
-    static String ASTRA_DB_KEYSPACE = "devoxx";
+    static String ASTRA_DB_TOKEN    = "<your_token>";
+    static String ASTRA_DB_ID       = "<your_db_id>";
+    static String ASTRA_DB_REGION   = "<your_db_region>";
+    static String ASTRA_DB_KEYSPACE = "<your_keyspace>";
     
     public static void main(String[] args) {
-        try (AstraClient astraClient = configureAtraClient()) {
+        try (AstraClient astraClient = configureAstraClient()) {
             // Devops
             testDevopsStreamingApi(astraClient);
             testDevopsOrganizationApi(astraClient);
@@ -35,7 +35,7 @@ public class QuickStartAstra {
         }
     }
     
-    public static AstraClient configureAtraClient() {
+    public static AstraClient configureAstraClient() {
         return AstraClient.builder()
          .withToken(ASTRA_DB_TOKEN)
          .withDatabaseId(ASTRA_DB_ID)
