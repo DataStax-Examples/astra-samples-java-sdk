@@ -13,7 +13,7 @@ public class AstraCrossRegionFailOver {
     
     static final Logger LOGGER = LoggerFactory.getLogger(AstraCrossRegionFailOver.class);
     
-    public static final String ASTRA_DB_TOKEN    = "AstraCS:gdZaqzmFZszaBTOlLgeecuPs:edd25600df1c01506f5388340f138f277cece2c93cb70f4b5fa386490daa5d44";
+    public static final String ASTRA_DB_TOKEN    = "<change_me>";
     public static final String ASTRA_DB_ID       = "3ed83de7-d97f-4fb6-bf9f-82e9f7eafa23";
     public static final String ASTRA_DB_REGION   = "eu-west-1";
     public static final String ASTRA_DB_KEYSPACE = "netflix";
